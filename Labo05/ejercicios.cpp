@@ -148,27 +148,29 @@ int sumaDoble(vector<int> s){
 bool existePico(vector<int> v){
     assert(v.size() > 2);
 
-    int i = 1;
-    bool res = false;
-    while(i < v.size()-1){
-        res = res || (v[i] > v[i-1] && v[i] > v[i+1]);
-        i++;
+    bool encontrePico = false;
+    for(int i = 1; i < v.size()-1; i++){
+        if((v[i] > v[i-1]) && (v[i] > v[i+1])){
+            encontrePico = true;
+            break;
+        }
     }
-    return res;
+    return encontrePico;
 }
 
 /************* Ejercicio 6 *************/
 
 int todosImpares(vector<int> v){
     assert(v.size() > 0);
-
-    int res = true;
-    int i = v.size()-1;
-    while(i >= 0){
-        res  = res && (v[i] % 2 == 1);
-        i--;
+    
+    bool todosImpares = true;
+    for(int i = 0; i < v.size(); i++){
+        if(v[i] % 2 == 0){
+            todosImpares = false;
+            break;
+        }
     }
-    return res;
+    return todosImpares;
 }
 
 /************* Ejercicio 7 *************/
@@ -201,11 +203,11 @@ int sumaPrimos(int n){
 
 
 /************* Ejercicio 8 *************/
-int indiceMinimoSubsec(vector<int> v, int i, int j){
+int indiceMinimoSubsec(vector<int> &v, int i, int j){
     assert((v.size() > 0) && (0 <= i <= j < v.size()));
 
     int minIndice = i;
-    for(int k = 0; k < v.size(); k++){
+    for(int k = 0; k < j+1; k++){
         if(v[k] < v[minIndice]){
             minIndice = k;
         }
@@ -216,17 +218,29 @@ int indiceMinimoSubsec(vector<int> v, int i, int j){
 
 /************* Ejercicio 9 *************/
 int sumatoria(vector<int> v) {
-    //Implementar
-    return 0;
+    
+    assert((v.size() % 2 == 1));        // PRE: Longitud del vector impar
+    
+    int suma = v[v.size() / 2];
+    for(int i = 1; i < (v.size() / 2) + 1; i++){
+        suma = suma + (v[(v.size() / 2)-i] + v[(v.size() / 2)+i]); 
+    }
+    return suma;
 }
-
 
 /************* Ejercicio 10 *************/
-
-void ordenar(vector<int>& v){
-    //Implementar
+void intercambiar(vector<int> &v, int indice, int minimo){
+    char tmp = v[indice];
+    v[indice] = v[minimo];
+    v[minimo] = tmp;
 }
 
+void ordenar(vector<int> &v){
+    for(int i = 0; i < v.size(); i++){
+        int indiceMinPos = indiceMinimoSubsec(v, i, v.size());
+        intercambiar(v, i, indiceMinPos);
+    }
+}
 
 /************* auxiliar *************/
 
