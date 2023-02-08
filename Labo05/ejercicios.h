@@ -25,10 +25,11 @@ int todosImpares(vector<int> v);
 bool esPrimo(int n);
 int sumaPrimos(int n);
 
-int indiceMinimoSubsec(vector<int> v, int i, int j);
+int indiceMinimoSubsec(vector<int>& v, int i, int j);
 
 int sumatoria(vector<int> v);
 
+void intercambiar(vector<int> &v, int indice, int minimo);
 void ordenar(vector<int>& v);
 
 
